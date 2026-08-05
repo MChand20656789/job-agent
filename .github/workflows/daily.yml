@@ -1,0 +1,16 @@
+name: daily-job-agent
+on:
+  schedule:
+    - cron: '0 17 * * *'
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate message
+        run: python agent.py > message.txt
+      - name: Send to Telegram
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.8991806894:AAE-lEPQ6dfybLJs_WaRYlGM03-eMNZ3Jpo }}/sendMessage -d chat_id=${{ secrets.8646594569 }} -d text="$(cat message.txt)"
