@@ -2,7 +2,7 @@ name: Hourly Nudge
 
 on:
   schedule:
-    - cron: '0 9-18 * * *'  # Every hour 9am-6pm Ventura time = 4pm-1am UTC
+    - cron: '0 8-23 * * *'  # Every hour 8am-11pm Ventura time
   workflow_dispatch:  # lets you test manually
 
 jobs:
