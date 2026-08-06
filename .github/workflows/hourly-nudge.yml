@@ -2,8 +2,9 @@ name: Hourly Nudge
 
 on:
   schedule:
-    - cron: '0 8-23 * * *'  # Every hour 8am-11pm Ventura time
-  workflow_dispatch:  # lets you test manually
+    - cron: '0 15-23 * * *'  # 8am-4pm Ventura
+    - cron: '0 0-6 * * *'    # 5pm-11pm Ventura
+  workflow_dispatch:
 
 jobs:
   nudge:
@@ -11,8 +12,6 @@ jobs:
     steps:
       - name: Send Telegram Reminder
         run: |
-          MESSAGE="⏰ CHECK EMAIL + TEXTS + LINKEDIN NOW%0A%0AReply to recruiters within 4 hours per your rule.%0A%0AApplied this week: check Job Applications tab"
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.CHAT_ID }} \
-            -d text="$MESSAGE" \
-            -d parse_mode="HTML"
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="⏰ CHECK EMAIL + LINKEDIN NOW - 4h reply rule"
